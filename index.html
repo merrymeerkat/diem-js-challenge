@@ -21,14 +21,15 @@
                   <label class="control-label" for="name">
                     Name:
                   </label>
-                  <input class="form-control" type="text" id="name" name="name" />
+                  <input class="form-control" type="text" id="name" name="name" onfocus="NameOnFocus()" onblur="NameOnBlur()">
+                  
                 </div>
                 <!-- Birthday -->
                 <div class="form-group">
                   <label class="control-label" for="birthday">
                     Birthday:
                   </label>
-                  <input class="form-control" id="date" name="date" type="date"/>
+                  <input class="form-control" id="date" name="date" type="date" onfocus="dateOnFocus()" onblur="dateOnBlur()"/>
                 </div>
                 <!-- Choose Theme -->
                 <div class="form-group">
@@ -36,22 +37,22 @@
                     Choose Theme:
                   </label>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="modeOptions" id="light" value="Light">
+                    <input class="form-check-input" type="radio" name="modeOptions" id="light" value="Light" onchange="getLight()">
                     <label class="form-check-label" for="light">Light Mode</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="modeOptions" id="dark" value="Dark">
+                    <input class="form-check-input" type="radio" name="modeOptions" id="dark" value="Dark" onchange="getDark()">
                     <label class="form-check-label" for="dark">Dark Mode</label>
                   </div>
                 </div>
                 <!-- Skills -->
-                <div class="form-group">
+                <div class="form-group" id = "skills">
                   <label class="control-label mr-3">
                     Skills:
                   </label>
-                  <button type="button" class="btn btn-success btn-sm" id="html">HTML</button>
-                  <button type="button" class="btn btn-success btn-sm" id="css">CSS</button>
-                  <button type="button" class="btn btn-success btn-sm" id="javascript">JavaScript</button>
+                <button type="button" class="btn btn-success btn-sm" id="htmlSkill" onclick="moveHTML()" onmouseover ="mouseOverHTML()" onmouseout="mouseOutHTML()">HTML</button>
+                  <button type="button" class="btn btn-success btn-sm" id="css" onclick="moveCSS()" onmouseover="mouseOverCSS()" onmouseout="mouseOutCSS()">CSS</button>
+                  <button type="button" class="btn btn-success btn-sm" id="javascript" onclick="moveJS()" onmouseover="mouseOverJS()" onmouseout="mouseOutJS()">JavaScript</button>
                 </div>
 
               </form>
@@ -62,7 +63,7 @@
         <!-- THE RIGHT SECTION -->
         <div class="col-12 col-sm-12 col-md-6 h-100">
           <div class="panel bg-dark text-white">
-            <div class="panel-body p-3">
+            <div class="panel-body" id = p3>
               <p id="nameOutput"></p>
               <p id="ageOutput"></p>
               <p id="themeOutput"></p>
@@ -74,8 +75,214 @@
     </div>
   </main>
 
+<!-- Setting default style values -->
+<style>
+#p3 {
+    background-color: rgb(245,245,245);
+    color: black;
+}
+#htmlSkill {
+    background-color: green;
+}
+#css {
+    background-color: green;
+}
+#javascript {
+    background-color: green;
+}
+</style>
+
+<script>
+    // For the "skills" section:
+    // These boolean flags tell you whether each button is in the left (true) or right (false) side of the page
+    var flagHTML = true;
+    var flagCSS = true;
+    var flagJS = true;
+    
+    // Changes button colour when hovering mouse over it
+    function mouseOverHTML(){
+        if (flagHTML) return;
+        else{
+            var node = document.getElementById("htmlSkill");
+            node.style.background = 'red';
+        }
+    }
+
+    // Resets button colour once mouse hovers away
+    function mouseOutHTML(){
+        if (flagHTML) return;
+        else{
+            var node = document.getElementById("htmlSkill");
+            node.style.background = 'green';
+        }
+    }
+
+    function mouseOverCSS(){
+        if (flagCSS) return;
+        else{
+            var node = document.getElementById("css");
+            node.style.background = 'red';
+        }
+    }
+    function mouseOutCSS(){
+        if (flagCSS) return;
+        else{
+            var node = document.getElementById("css");
+            node.style.background = 'green';
+        }
+    }
+
+    function mouseOverJS(){
+        if (flagJS) return;
+        else{
+            var node = document.getElementById("javascript");
+            node.style.background = 'red';
+        }
+    }
+    function mouseOutJS(){
+        if (flagHTML) return;
+        else{
+            var node = document.getElementById("javascript");
+            node.style.background = 'green';
+        }
+    }
+
+    // Moves HTML back and forth between the left-hand-side and right-hand-side sections of the page
+    function moveHTML(){
+        if (flagHTML){
+            var node = document.getElementById("htmlSkill");
+            document.getElementById("skillsOutput").appendChild(node);
+            flagHTML = false;
+        }
+        else{
+            var node = document.getElementById("htmlSkill");
+            document.getElementById("skills").appendChild(node);
+            node.style.background = "green";
+            flagHTML = true;
+        }
+    }
+    
+    function moveCSS(){
+        if (flagCSS){
+            var node = document.getElementById("css");
+            document.getElementById("skillsOutput").appendChild(node);
+            flagCSS = false;
+        }
+        else{
+            var node = document.getElementById("css");
+            document.getElementById("skills").appendChild(node);
+            node.style.background = "green";
+            flagCSS = true;
+        }
+    }
+    
+    function moveJS(){
+        if (flagJS){
+            var node = document.getElementById("javascript");
+            document.getElementById("skillsOutput").appendChild(node);
+            flagJS = false;
+        }
+        else{
+            var node = document.getElementById("javascript");
+            document.getElementById("skills").appendChild(node);
+            node.style.background = "green";
+            flagJS = true;
+        }
+    }
+    
+    // Sets dark mode
+    function getDark() {
+        var element = document.getElementById("p3");
+        element.style.color = "white";
+        element.style.backgroundColor = "rgb(49,51,71)";
+        document.getElementById('themeOutput').innerHTML="You chose Dark Mode!";
+    }
+
+    // Sets light mode
+    function getLight(){
+        var element = document.getElementById("p3");
+        element.style.color = "black";
+        element.style.backgroundColor = "rgb(245,245,245)";
+        document.getElementById('themeOutput').innerHTML="You chose Light Mode!";
+    }
+    
+    // Functions for the Name section: ask for user's name + greet user
+    function NameOnFocus(){
+        document.getElementById('nameOutput').innerHTML = askForName();
+    }   
+    function NameOnBlur() {
+        var thisName = document.getElementById("name").value;
+        document.getElementById('nameOutput').innerHTML = sayHello(thisName);
+    }
+    function askForName(){
+        return "Hello, there! What's your name?"
+    }
+    function sayHello(x) {
+        if (x == '')
+            return "Hello, there! Please type in your name."
+        else
+            return "Hi, " + x + '!';
+    }
+
+    // Functions for date section
+    function dateOnFocus(){
+       document.getElementById('ageOutput').innerHTML = askForAge();
+    }
+    
+    function dateOnBlur(){
+        var thisBirthday = document.getElementById("date").value;
+        document.getElementById('ageOutput').innerHTML = sayAge(thisBirthday);
+    }
+    function askForAge(){
+        return "Lemme guess, your age is..."
+    }
+    // Calculates age based on number of complete years passed between date of birth and today
+    // this might be slightly off because JS is using UTC...
+    function sayAge(x){
+        var DoBstr =  x.toString(); 
+        if (DoBstr== "")
+            return "Would you mind entering your birthday?"
+        else{
+            var today = new Date().toISOString().slice(0,10);
+            var birthdayYear = parseInt(DoBstr.substring(0,4)); 
+            var birthdayMonth = parseInt(DoBstr.substring(5,7));
+            var birthdayDay = parseInt(DoBstr.substring(8,10));
+            var todayYear = parseInt(today.substring(0,4));
+            var todayMonth = parseInt(today.substring(5,7));
+            var todayDay = parseInt(today.substring(8,10));
+
+            var YearDiff = todayYear - birthdayYear;
+            var MonthDiff = todayMonth - birthdayMonth;
+            var DayDiff = todayDay - birthdayDay;
+            if (MonthDiff == 0){
+                if (DayDiff < 0)
+                    return AgePhrase(YearDiff - 1, 0);
+                else if (DayDiff == 0)
+                    return AgePhrase(YearDiff, 1);
+                else
+                    return AgePhrase(YearDiff, 0);
+            }
+            else if (MonthDiff < 0)
+                return AgePhrase(YearDiff - 1, 0);
+            else 
+                return AgePhrase(YearDiff, 0);
+        }
+    }
+    // given age and whether today is the person's birthday, output appropriate message
+    function AgePhrase(years, birthdayToday){
+        if (birthdayToday)
+            return "Your age is " + years + " years old. Happy birthday!"
+        else
+            return "Your age is " + years + " years old!"
+    }
+
+                    
+        
+</script>
+
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
+
